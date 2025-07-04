@@ -14,8 +14,8 @@ class SpeedCalculator(QWidget):
         time_label = QLabel("Time: ")
         self.time_line_edit = QLineEdit()
 
-        convert_button = QPushButton("Convert")
-        convert_button.clicked.connect(self.convert)
+        calculate_button = QPushButton("Convert")
+        calculate_button.clicked.connect(self.calculate)
 
         self.output_label = QLabel("")
 
@@ -24,19 +24,24 @@ class SpeedCalculator(QWidget):
         grid.addWidget(self.distance_line_edit, 0, 1)
         grid.addWidget(time_label, 1, 0)
         grid.addWidget(self.time_line_edit, 1, 1)
+        grid.addWidget(calculate_button, 2, 1)
+        # first 2 numbers set the row and column position, second 2 set
+        # width and height in numbers of rows and columns
+        grid.addWidget(self.output_label, 3, 0, 1, 2)
 
+        # set grid to add record widget
         self.setLayout(grid)
 
-    def convert(self):
+    def calculate(self):
         distance = self.distance_line_edit.text()
         time = self.time_line_edit.text()
         try:
             distance = float(distance)
             time = float(time)
             speed = distance/time
-            self.output_label.text(f"Your speed was {speed}")
+            self.output_label.setText(f"Your speed was {speed}")
         except:
-            self.output_label.text("Entries must be numbers")
+            self.output_label.setText("Entries must be numbers")
 
 app = QApplication(sys.argv)
 speed_conv_widget = SpeedCalculator()
